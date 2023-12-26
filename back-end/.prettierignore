@@ -1,0 +1,19 @@
+# Ignore all files in the node_modules directory
+node_modules/
+
+# Ignore all files in the dist directory
+dist/
+
+# Ignore all files in the build directory
+build/
+
+# Ignore all files in the coverage directory
+coverage/
+
+# Ignore all files in the .git directory
+.git/
+
+tsconfig.json
+tsconfig.build.json
+package.json
+package-lock.json
