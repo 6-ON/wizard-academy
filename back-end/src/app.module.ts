@@ -8,17 +8,17 @@ import { TypeormConfigService } from './typeorm-config/typeorm-config.service';
 
 @Module({
 	imports: [
-		AuthModule, UniversityModule,
+		AuthModule,
+		UniversityModule,
 		ConfigModule.forRoot({
 			isGlobal: true,
 		}),
 		TypeOrmModule.forRootAsync({
 			imports: [TypeormConfigModule],
-			useExisting: TypeormConfigService
+			useExisting: TypeormConfigService,
 		}),
-
 	],
 	controllers: [],
 	providers: [],
 })
-export class AppModule { }
+export class AppModule {}
