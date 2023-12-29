@@ -5,6 +5,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormConfigModule } from './typeorm-config/typeorm-config.module';
 import { TypeormConfigService } from './typeorm-config/typeorm-config.service';
+import { DepartmentsController } from './department/department.controller';
+import { DepartmentModule } from './department/department.module';
 
 @Module({
 	imports: [
@@ -17,8 +19,9 @@ import { TypeormConfigService } from './typeorm-config/typeorm-config.service';
 			imports: [TypeormConfigModule],
 			useExisting: TypeormConfigService,
 		}),
+		DepartmentModule,
 	],
-	controllers: [],
+	controllers: [DepartmentsController],
 	providers: [],
 })
 export class AppModule {}
