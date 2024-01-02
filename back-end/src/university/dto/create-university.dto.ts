@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateUniversityDto {
 	@IsString()
@@ -8,4 +8,8 @@ export class CreateUniversityDto {
 	@IsString()
 	@IsNotEmpty()
 	adress: string;
+
+	@IsNotEmpty()
+	@IsNumber()
+	deanId: number;
 }
