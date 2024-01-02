@@ -13,11 +13,8 @@ export class DeanService {
 	) {}
 
 	create(createDeanDto: CreateDeanDto) {
-		const { user, ...rest } = createDeanDto;
-		const dean = this.deanRepository.create({
-			...rest,
-			user: { ...user, role: Role.DEAN },
-		});
+		createDeanDto.user.role = Role.DEAN;
+		const dean = this.deanRepository.create(createDeanDto);
 		return this.deanRepository.save(dean);
 	}
 
