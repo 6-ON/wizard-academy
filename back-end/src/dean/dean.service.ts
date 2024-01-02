@@ -12,10 +12,12 @@ export class DeanService {
 		@InjectRepository(Dean) private deanRepository: Repository<Dean>,
 	) {}
 
-	create(createDeanDto: CreateDeanDto) {
+	async create(createDeanDto: CreateDeanDto) {
 		createDeanDto.user.role = Role.DEAN;
 		const dean = this.deanRepository.create(createDeanDto);
-		return this.deanRepository.save(dean);
+		const record = await this.deanRepository.save(dean);
+		delete record.user.password;
+		return record;
 	}
 
 	findAll() {
