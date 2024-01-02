@@ -17,8 +17,7 @@ export class UniversityController {
 
 	@Post()
 	create(@Body() createUniversityDto: CreateUniversityDto) {
-		// return this.universityService.create(createUniversityDto);
-		return createUniversityDto;
+		return this.universityService.create(createUniversityDto);
 	}
 
 	@Get()
