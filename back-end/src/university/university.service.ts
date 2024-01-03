@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
 import { Repository } from 'typeorm';
@@ -19,7 +19,7 @@ export class UniversityService {
 		university.adress = createUniversityDto.adress;
 		const user = await this.userService.findOne(createUniversityDto.deanId);
 		if (!user) {
-			throw new Error('User not found');
+			throw new UnprocessableEntityException('User not found');
 		}
 		university.dean = user;
 		return this.universityRepo.save(university);
@@ -29,18 +29,32 @@ export class UniversityService {
 		return this.universityRepo.find();
 	}
 
-	findOne(id: number) {
-		return this.universityRepo.findOne({ where: { id }, relations: ['dean'] });
+	async findOne(id: number) {
+		const university = await this.universityRepo.findOne({
+			where: { id },
+			relations: ['dean'],
+		});
+		if (!university) {
+			throw new NotFoundException('University not found');
+		}
+		return university;
 	}
 
 	async update(id: number, updateUniversityDto: UpdateUniversityDto) {
 		const university = await this.universityRepo.findOne({ where: { id } });
+		if (!university) {
+			throw new NotFoundException('University not found');
+		}
 		university.name = updateUniversityDto.name;
 		university.adress = updateUniversityDto.adress;
 		return this.universityRepo.save(university);
 	}
 
-	remove(id: number) {
-		return this.universityRepo.delete({ id });
+	async remove(id: number) {
+		const university = this.findOne(id);
+		if (!university) {
+			throw new NotFoundException('University not found');
+		}
+		await this.universityRepo.delete({ id });
 	}
 }

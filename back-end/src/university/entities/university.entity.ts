@@ -1,8 +1,10 @@
+import { Student } from '@/student/entities/student.entity';
 import { User } from '@/user/entities/user.entity';
 import {
 	Column,
 	Entity,
 	JoinColumn,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -20,4 +22,7 @@ export class University {
 	@JoinColumn()
 	@OneToOne(() => User)
 	dean: User;
+
+	@OneToMany(() => Student, (student) => student.university)
+	students: Student[];
 }
