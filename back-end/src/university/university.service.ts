@@ -45,8 +45,7 @@ export class UniversityService {
 		if (!university) {
 			throw new NotFoundException('University not found');
 		}
-		university.name = updateUniversityDto.name;
-		university.adress = updateUniversityDto.adress;
+		Object.assign(university, updateUniversityDto);
 		return this.universityRepo.save(university);
 	}
 
