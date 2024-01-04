@@ -5,9 +5,12 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormConfigModule } from './typeorm-config/typeorm-config.module';
 import { TypeormConfigService } from './typeorm-config/typeorm-config.service';
+import { DepartmentModule } from './department/department.module';
+
 import { UserModule } from './user/user.module';
 import { DeanModule } from './dean/dean.module';
 import { StudentModule } from './student/student.module';
+
 
 @Module({
 	imports: [
@@ -20,6 +23,7 @@ import { StudentModule } from './student/student.module';
 		ConfigModule.forRoot({
 			isGlobal: true,
 		}),
+		DepartmentModule,
 		UserModule,
 		DeanModule,
 		StudentModule,
