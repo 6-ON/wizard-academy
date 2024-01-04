@@ -45,10 +45,18 @@ export class StudentService {
 
 	async update(id: number, updateStudentDto: UpdateStudentDto) {
 		const student = await this.findOne(id);
+		if (!student) {
+			throw new Error('Student not found');
+		}
 		student.age = updateStudentDto.age;
 		student.YearOfRegistration = updateStudentDto.YearOfRegistration;
-		return this.studentRepo.save(student);
+		student.user.firstName = updateStudentDto.user.firstName;
+		student.user.lastName = updateStudentDto.user.lastName;
+		student.user.phone = updateStudentDto.user.phone;
+		student.user.email = updateStudentDto.user.email;
+		student.user.password = updateStudentDto.user.password;
 
+		return this.studentRepo.save(student);
 	}
 
 	async remove(id: number) {
