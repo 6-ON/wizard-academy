@@ -1,0 +1,69 @@
+import { Injectable } from '@nestjs/common';
+import { CreateStudentDto } from './dto/create-student.dto';
+import { UpdateStudentDto } from './dto/update-student.dto';
+import { Student } from './entities/student.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UniversityService } from '@/university/university.service';
+import { Role } from '@/user/roles';
+
+@Injectable()
+export class StudentService {
+	constructor(
+		@InjectRepository(Student)
+		private studentRepo: Repository<Student>,
+		private universityService: UniversityService,
+	) {}
+	async create(createStudentDto: CreateStudentDto) {
+		const { universityId, ...rest } = createStudentDto;
+		const university = await this.universityService.findOne(universityId);
+		if (!university) {
+			throw new Error('University not found');
+		}
+		rest.user.role = Role.STUDENT;
+
+		let student = this.studentRepo.create({ ...rest, university });
+		student = await this.studentRepo.save(student);
+		delete student.user.password;
+		return student;
+	}
+
+	async findAll() {
+		return await this.studentRepo.find();
+	}
+
+	async findOne(id: number) {
+		const student = await this.studentRepo.findOne({
+			where: { id },
+			relations: ['user', 'university'],
+		});
+		if (!student) {
+			throw new Error('Student not found');
+		}
+		return student;
+	}
+
+	async update(id: number, updateStudentDto: UpdateStudentDto) {
+		const student = await this.findOne(id);
+		if (!student) {
+			throw new Error('Student not found');
+		}
+		student.age = updateStudentDto.age;
+		student.YearOfRegistration = updateStudentDto.YearOfRegistration;
+		student.user.firstName = updateStudentDto.user.firstName;
+		student.user.lastName = updateStudentDto.user.lastName;
+		student.user.phone = updateStudentDto.user.phone;
+		student.user.email = updateStudentDto.user.email;
+		student.user.password = updateStudentDto.user.password;
+
+		return this.studentRepo.save(student);
+	}
+
+	async remove(id: number) {
+		const student = await this.findOne(id);
+		if (!student) {
+			throw new Error('Student not found');
+		}
+		await this.studentRepo.delete({ id });
+	}
+}

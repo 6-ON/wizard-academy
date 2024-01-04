@@ -9,22 +9,24 @@ import { DepartmentModule } from './department/department.module';
 
 import { UserModule } from './user/user.module';
 import { DeanModule } from './dean/dean.module';
+import { StudentModule } from './student/student.module';
 
 
 @Module({
 	imports: [
+		TypeOrmModule.forRootAsync({
+			imports: [TypeormConfigModule],
+			useExisting: TypeormConfigService,
+		}),
 		AuthModule,
 		UniversityModule,
 		ConfigModule.forRoot({
 			isGlobal: true,
 		}),
-		TypeOrmModule.forRootAsync({
-			imports: [TypeormConfigModule],
-			useExisting: TypeormConfigService,
-		}),
 		DepartmentModule,
 		UserModule,
 		DeanModule,
+		StudentModule,
 	],
 	controllers: [],
 	providers: [],
