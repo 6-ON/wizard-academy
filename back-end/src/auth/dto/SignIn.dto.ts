@@ -10,7 +10,7 @@ export class SignInDto {
 	@IsNotEmpty()
 	@IsEmail()
 	@ValidateIf((o) => !o.phone)
-	email: string;
+	email?: string;
 
 	@IsNotEmpty()
 	@IsString()
@@ -19,5 +19,5 @@ export class SignInDto {
 	@IsNotEmpty()
 	@IsPhoneNumber()
 	@ValidateIf((o) => !o.email)
-	phone: string;
+	phone?: string;
 }
