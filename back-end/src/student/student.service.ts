@@ -48,14 +48,7 @@ export class StudentService {
 		if (!student) {
 			throw new Error('Student not found');
 		}
-		student.age = updateStudentDto.age;
-		student.YearOfRegistration = updateStudentDto.YearOfRegistration;
-		student.user.firstName = updateStudentDto.user.firstName;
-		student.user.lastName = updateStudentDto.user.lastName;
-		student.user.phone = updateStudentDto.user.phone;
-		student.user.email = updateStudentDto.user.email;
-		student.user.password = updateStudentDto.user.password;
-
+		Object.assign(student, updateStudentDto);
 		return this.studentRepo.save(student);
 	}
 
