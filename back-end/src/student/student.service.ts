@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
@@ -18,7 +18,7 @@ export class StudentService {
 		const { universityId, ...rest } = createStudentDto;
 		const university = await this.universityService.findOne(universityId);
 		if (!university) {
-			throw new Error('University not found');
+			throw new UnprocessableEntityException('University not found');
 		}
 		rest.user.role = Role.STUDENT;
 
@@ -38,7 +38,7 @@ export class StudentService {
 			relations: ['user', 'university'],
 		});
 		if (!student) {
-			throw new Error('Student not found');
+			throw new NotFoundException('Student not found');
 		}
 		return student;
 	}
@@ -46,7 +46,7 @@ export class StudentService {
 	async update(id: number, updateStudentDto: UpdateStudentDto) {
 		const student = await this.findOne(id);
 		if (!student) {
-			throw new Error('Student not found');
+			throw new NotFoundException('Student not found');
 		}
 		Object.assign(student, updateStudentDto);
 		return this.studentRepo.save(student);
@@ -55,7 +55,7 @@ export class StudentService {
 	async remove(id: number) {
 		const student = await this.findOne(id);
 		if (!student) {
-			throw new Error('Student not found');
+			throw new NotFoundException('Student not found');
 		}
 		await this.studentRepo.delete({ id });
 	}
