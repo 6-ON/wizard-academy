@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DeanService } from './dean.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Dean } from './entities/dean.entity';
+import { Role } from '@/user/roles';
 
 describe('DeanService', () => {
 	let service: DeanService;
@@ -38,6 +39,7 @@ describe('DeanService', () => {
 				email: 'fjeiofore@fzef.com',
 				password: 'password',
 				phone: '+21247042574',
+				role: Role.DEAN,
 			},
 		});
 		expect(createdDean).toBeInstanceOf(Dean);
