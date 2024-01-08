@@ -7,7 +7,7 @@ import {
 	Post,
 	UseGuards,
 } from '@nestjs/common';
-import { JwtGuard } from './guard/jwt.guard';
+import { JwtGuard } from './guards';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/SignIn.dto';
 import { GetUser } from './decorator';
