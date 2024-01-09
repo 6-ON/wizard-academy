@@ -10,7 +10,7 @@ import { DepartmentModule } from './department/department.module';
 import { UserModule } from './user/user.module';
 import { DeanModule } from './dean/dean.module';
 import { StudentModule } from './student/student.module';
-
+import { SubjectModule } from './subject/subject.module';
 
 @Module({
 	imports: [
@@ -27,6 +27,7 @@ import { StudentModule } from './student/student.module';
 		UserModule,
 		DeanModule,
 		StudentModule,
+		SubjectModule,
 	],
 	controllers: [],
 	providers: [],
