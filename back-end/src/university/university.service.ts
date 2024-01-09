@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import {
+	Injectable,
+	NotFoundException,
+	UnprocessableEntityException,
+} from '@nestjs/common';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
 import { Repository } from 'typeorm';
