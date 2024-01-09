@@ -6,10 +6,13 @@ import {
 	Patch,
 	Param,
 	Delete,
+	UseGuards,
 } from '@nestjs/common';
 import { UniversityService } from './university.service';
 import { CreateUniversityDto } from './dto/create-university.dto';
 import { UpdateUniversityDto } from './dto/update-university.dto';
+import { UniversityOwnerGuard } from './guards';
+import { JwtGuard } from '@/auth/guards';
 
 @Controller('university')
 export class UniversityController {
@@ -31,6 +34,7 @@ export class UniversityController {
 	}
 
 	@Patch(':id')
+	@UseGuards(JwtGuard, UniversityOwnerGuard)
 	update(
 		@Param('id') id: string,
 		@Body() updateUniversityDto: UpdateUniversityDto,
@@ -39,6 +43,7 @@ export class UniversityController {
 	}
 
 	@Delete(':id')
+	@UseGuards(JwtGuard, UniversityOwnerGuard)
 	remove(@Param('id') id: string) {
 		return this.universityService.remove(+id);
 	}
