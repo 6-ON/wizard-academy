@@ -8,11 +8,11 @@ export class User extends BaseEntity {
 	firstName: string;
 	@Column()
 	lastName: string;
-	@Column()
+	@Column({ unique: true })
 	email: string;
 	@Column({ select: false })
 	password: string;
-	@Column()
+	@Column({ unique: true })
 	phone: string;
 	@Column({ type: 'enum', enum: Role, enumName: 'roles' })
 	role: Role;
