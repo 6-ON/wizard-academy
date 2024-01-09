@@ -19,5 +19,4 @@ export class CreateStudentDto {
 	@IsNotEmpty()
 	@IsNumber()
 	universityId: number;
-
 }

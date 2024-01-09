@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import {
+	Injectable,
+	NotFoundException,
+	UnprocessableEntityException,
+} from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
@@ -29,7 +33,11 @@ export class StudentService {
 	}
 
 	async findAll() {
-		return await this.studentRepo.find();
+		const students =  await this.studentRepo.find();
+		if (!students) {
+			throw new NotFoundException('Students not found');
+		}
+		return students;
 	}
 
 	async findOne(id: number) {
