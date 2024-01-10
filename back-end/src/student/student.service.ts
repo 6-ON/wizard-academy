@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import {
+	Injectable,
+	NotFoundException,
+	UnprocessableEntityException,
+} from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
@@ -29,7 +33,8 @@ export class StudentService {
 	}
 
 	async findAll() {
-		return await this.studentRepo.find();
+		const students =  await this.studentRepo.find();
+		return students;
 	}
 
 	async findOne(id: number) {
@@ -45,18 +50,13 @@ export class StudentService {
 
 	async update(id: number, updateStudentDto: UpdateStudentDto) {
 		const student = await this.findOne(id);
-		if (!student) {
-			throw new NotFoundException('Student not found');
-		}
 		Object.assign(student, updateStudentDto);
 		return this.studentRepo.save(student);
 	}
 
 	async remove(id: number) {
 		const student = await this.findOne(id);
-		if (!student) {
-			throw new NotFoundException('Student not found');
-		}
-		await this.studentRepo.delete({ id });
+		this.studentRepo.delete(student)
+		return { deleted: true, message: 'Student deleted' };
 	}
 }

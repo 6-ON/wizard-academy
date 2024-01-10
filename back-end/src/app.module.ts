@@ -6,11 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeormConfigModule } from './typeorm-config/typeorm-config.module';
 import { TypeormConfigService } from './typeorm-config/typeorm-config.service';
 import { DepartmentModule } from './department/department.module';
-
 import { UserModule } from './user/user.module';
 import { DeanModule } from './dean/dean.module';
 import { StudentModule } from './student/student.module';
+import { SpecialtyModule } from './specialty/specialty.module';
 import { SubjectModule } from './subject/subject.module';
+
 
 @Module({
 	imports: [
@@ -27,6 +28,7 @@ import { SubjectModule } from './subject/subject.module';
 		UserModule,
 		DeanModule,
 		StudentModule,
+		SpecialtyModule,
 		SubjectModule,
 	],
 	controllers: [],
