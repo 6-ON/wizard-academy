@@ -34,9 +34,6 @@ export class StudentService {
 
 	async findAll() {
 		const students =  await this.studentRepo.find();
-		if (!students) {
-			throw new NotFoundException('Students not found');
-		}
 		return students;
 	}
 
@@ -53,18 +50,13 @@ export class StudentService {
 
 	async update(id: number, updateStudentDto: UpdateStudentDto) {
 		const student = await this.findOne(id);
-		if (!student) {
-			throw new NotFoundException('Student not found');
-		}
 		Object.assign(student, updateStudentDto);
 		return this.studentRepo.save(student);
 	}
 
 	async remove(id: number) {
 		const student = await this.findOne(id);
-		if (!student) {
-			throw new NotFoundException('Student not found');
-		}
-		await this.studentRepo.delete({ id });
+		this.studentRepo.delete(student)
+		return { deleted: true, message: 'Student deleted' };
 	}
 }
