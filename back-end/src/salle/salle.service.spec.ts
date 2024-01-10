@@ -38,7 +38,7 @@ describe('SalleService', () => {
   it('should add salle', async () => {
 		salle = await service.create({
 			number: 134,
-			ability: 'physique',
+			capacity: 'physique',
 		});
 		expect(salle).toBeInstanceOf(Salle);
 	});
@@ -58,11 +58,11 @@ describe('SalleService', () => {
   
   it('should update salle', async () => {
     const payload: UpdateSalleDto = {
-      ability: 'new ability',
+      capacity: 'new capacity',
     };
     salle = await service.update(salle.id, payload);
     expect(salle).toBeInstanceOf(Salle);
-    expect(salle.ability).toEqual(payload.ability);
+    expect(salle.capacity).toEqual(payload.capacity);
   });
 
   it('should delete salle', async () => {
