@@ -21,11 +21,7 @@ export class SpecialtyService {
 	}
 
 	findAll() {
-		const specialties = this.specialityRepo.find();
-		if (!specialties) {
-			throw new NotFoundException('Specialties not found');
-		}
-		return specialties;
+		return this.specialityRepo.find();
 	}
 
 	async findOne(id: number) {
@@ -40,18 +36,12 @@ export class SpecialtyService {
 
 	async update(id: number, updateSpecialtyDto: UpdateSpecialtyDto) {
 		const specialty = await this.findOne(id);
-		if (!specialty) {
-			throw new NotFoundException('Specialty not found');
-		}
 		Object.assign(specialty, updateSpecialtyDto);
 		return await this.specialityRepo.save(specialty);
 	}
 	async remove(id: number) {
 		const specialty = await this.findOne(id);
-		if (!specialty) {
-			throw new NotFoundException('Specialty not found');
-		}
-		this.specialityRepo.delete(id);
-		return 'Specialty deleted';
+		this.specialityRepo.delete(specialty);
+		return { deleted: true, message: 'Specialty deleted'} ;
 	}
 }
