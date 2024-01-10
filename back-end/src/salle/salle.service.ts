@@ -30,12 +30,8 @@ export class SalleService {
 
   async update(id: number, updateSalleDto: UpdateSalleDto) {
     let salle = await this.findOne(id);
-    salle = this.salleRepository.merge(salle, {
-      ...updateSalleDto,
-      number: Number(updateSalleDto.number), 
-    });
+    salle = this.salleRepository.merge(salle, updateSalleDto);
     return this.salleRepository.save(salle);
-
   }
 
    async remove(id: number) {
