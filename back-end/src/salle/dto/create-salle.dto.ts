@@ -5,5 +5,5 @@ export class CreateSalleDto {
     number: number;
     @IsNotEmpty()
     @IsString()
-    ability: string;
+    capacity: string;
 }
