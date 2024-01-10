@@ -66,14 +66,6 @@ describe('StudentService', () => {
 		const student = await service.update(1, {
 			age: 20,
 			YearOfRegistration: '2024-01-02T15:32:28.410Z',
-			user: {
-				password: '123456',
-				firstName: 'oussama',
-				lastName: 'lastName',
-				phone: '+212637171341',
-				email: 'example@email.com',
-				role: Role.STUDENT,
-			},
 		});
 		expect(student).toBeInstanceOf(Student);
 	});

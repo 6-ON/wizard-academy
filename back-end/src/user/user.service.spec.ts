@@ -43,8 +43,9 @@ describe('UserService', () => {
 			email: 'amdzad@cc.com',
 			password: 'lol',
 			phone: 'dehfieure',
+			role: Role.ADMIN,
 		};
-		createdUser = await service.create(user, Role.ADMIN);
+		createdUser = await service.create(user);
 		expect(createdUser).toBeInstanceOf(User);
 		expect(createdUser.role).toEqual(Role.ADMIN);
 	});
