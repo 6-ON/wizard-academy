@@ -7,7 +7,7 @@ export class Salle {
   @Column()
   number: number;
   @Column()
-  ability: string;
+  capacity: string;
 
   /**
 	 * @todo add department relation
