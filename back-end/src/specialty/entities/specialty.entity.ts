@@ -1,5 +1,6 @@
 import { Department } from '@/department/entity/department.entity';
 import { Student } from '@/student/entities/student.entity';
+import { Subject } from '@/subject/entities/subject.entity';
 import {
 	Column,
 	Entity,
@@ -23,4 +24,7 @@ export class Specialty {
 	@ManyToMany(() => Department)
 	@JoinTable({ name: 'specialty_department' })
 	departments: Department[];
+	@ManyToMany(() => Subject, (subject) => subject.specialties)
+	@JoinTable({ name: 'subject_specialty' })
+	subjects: Subject[];
 }
