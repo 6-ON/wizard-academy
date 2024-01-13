@@ -8,5 +8,6 @@ import { Dean } from './entities/dean.entity';
 	imports: [TypeOrmModule.forFeature([Dean])],
 	controllers: [DeanController],
 	providers: [DeanService],
+	exports: [DeanService],
 })
 export class DeanModule {}
