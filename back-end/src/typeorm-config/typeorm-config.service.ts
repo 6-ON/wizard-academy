@@ -13,6 +13,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
 			username: this.config.get('DATABASE_USERNAME'),
 			password: this.config.get('DATABASE_PASSWORD'),
 			database: this.config.get('DATABASE_NAME'),
+			entities: [__dirname + '/../**/*.entity{.ts,.js}'], // seeding workarround for loading entities
 			autoLoadEntities: true,
 			logger: 'file',
 			logging: true,
