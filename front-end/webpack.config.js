@@ -16,6 +16,11 @@ module.exports = {
 	devServer: {
 		port: 3001,
 		historyApiFallback: true,
+		client :{
+			overlay: {
+				runtimeErrors: false,
+			}
+		}
 	},
 	entry: {
 		main: './src/index.tsx',
